@@ -2,6 +2,7 @@ package com.kingja.seckill.controller;
 
 import com.kingja.seckill.domain.User;
 import com.kingja.seckill.redis.RedisService;
+import com.kingja.seckill.redis.UserKey;
 import com.kingja.seckill.result.Result;
 import com.kingja.seckill.service.UserService;
 
@@ -38,15 +39,18 @@ public class SampleController {
     }
     @RequestMapping("/redis/get")
     @ResponseBody
-    public Result<Long> redisget() {
-        Long v1 = redisService.get("key1",Long.class);
-        return Result.success(v1);
+    public Result<User> redisget() {
+        User user = redisService.get(UserKey.getById,"1",User.class);
+        return Result.success(user);
     }
 
     @RequestMapping("/redis/set")
     @ResponseBody
     public Result<Boolean> redisset() {
-        Boolean result = redisService.set("key2","kingja");
+        User user = new User();
+        user.setId(888);
+        user.setName("Jordan");
+        Boolean result = redisService.set(UserKey.getById,"1",user);
         return Result.success(result);
     }
 
