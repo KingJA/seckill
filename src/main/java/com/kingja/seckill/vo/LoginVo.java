@@ -1,5 +1,11 @@
 package com.kingja.seckill.vo;
 
+import com.kingja.seckill.validator.IsMobile;
+
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * Description:TODO
  * Create Time:2019/9/5 0005 下午 5:04
@@ -7,7 +13,11 @@ package com.kingja.seckill.vo;
  * Email:kingjavip@gmail.com
  */
 public class LoginVo {
+    @NotNull
+    @IsMobile
     private String mobile;
+    @NotNull
+    @Length(min = 32)
     private String password;
 
     public String getMobile() {

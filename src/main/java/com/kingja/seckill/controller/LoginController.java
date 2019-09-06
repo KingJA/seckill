@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+
 /**
  * Description:TODO
  * Create Time:2019/9/3 0003 下午 3:12
@@ -35,9 +38,9 @@ public class LoginController {
 
     @RequestMapping("/do_login")
     @ResponseBody
-    public Result<Boolean> doLogin(LoginVo loginVo) {
+    public Result<Boolean> doLogin(HttpServletResponse httpServletResponse, @Valid LoginVo loginVo) {
         logger.info(loginVo.toString());
-        userService.login(loginVo);
-        return Result.success(true);
+        boolean result = userService.login(httpServletResponse,loginVo);
+        return Result.success(result);
     }
 }

@@ -3,4 +3,13 @@
 * centos redis的安装
 * redis，从配置文件读取配置数据
 * 利用KeyPrefix来管理redis的key
+
+登录
 * 两次MD5
+* 参数检验->抛出异常
+* 全局异常处理
+接口流程中只要出现错误都可以随时抛异常
+* 分布式session
+WebMvcConfigurerAdapter
+HandlerMethodArgumentResolver
+* 
