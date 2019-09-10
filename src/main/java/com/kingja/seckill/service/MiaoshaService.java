@@ -1,7 +1,5 @@
 package com.kingja.seckill.service;
 
-import com.kingja.seckill.dao.GoodsDao;
-import com.kingja.seckill.domain.Goods;
 import com.kingja.seckill.domain.MiaoshaUser;
 import com.kingja.seckill.domain.OrderInfo;
 import com.kingja.seckill.vo.GoodsVo;
@@ -9,8 +7,6 @@ import com.kingja.seckill.vo.GoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * Description:TODO

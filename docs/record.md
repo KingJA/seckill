@@ -46,3 +46,6 @@ HandlerMethodArgumentResolver
 秒杀商品
 snowflake算法
 * 不提倡在service中调用别的dao,可以调用别的service，这样逻辑清晰些
+
+
+jmeter压测
