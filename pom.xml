@@ -17,7 +17,8 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
+    <packaging>war</packaging>
+   <!-- <packaging>jar</packaging>-->
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -78,9 +79,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+
+        <!--War打包依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

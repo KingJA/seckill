@@ -35,7 +35,7 @@ public class MiaoshaUserService {
         return miaoshaUserDao.getById(id);
     }
 
-    public boolean login(HttpServletResponse httpServletResponse, LoginVo loginVo) {
+    public String login(HttpServletResponse httpServletResponse, LoginVo loginVo) {
         String mobile = loginVo.getMobile();
         String password = loginVo.getPassword();
         MiaoshaUser user = miaoshaUserDao.getById(Long.valueOf(mobile));
@@ -51,7 +51,7 @@ public class MiaoshaUserService {
         //生成cookie
         String token = UUIDUtil.uuid();
         addCookie(httpServletResponse,token, user);
-        return true;
+        return token;
     }
 
     public MiaoshaUser getByToken(HttpServletResponse response, String token) {

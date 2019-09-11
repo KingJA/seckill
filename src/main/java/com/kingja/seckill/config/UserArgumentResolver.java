@@ -32,14 +32,13 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
         HttpServletResponse response = webRequest.getNativeResponse(HttpServletResponse.class);
-
         String paramToken = request.getParameter(MiaoshaUserKey.COOKIE_NAME_TOKEN);
         String cookieToken = getCookeiValue(request, MiaoshaUserKey.COOKIE_NAME_TOKEN);
-
         if (StringUtils.isEmpty(cookieToken) && StringUtils.isEmpty(paramToken)) {
             return null;
         }
         String token = StringUtils.isEmpty(paramToken) ? cookieToken : paramToken;
+
         return userService.getByToken(response, token);
     }
 
