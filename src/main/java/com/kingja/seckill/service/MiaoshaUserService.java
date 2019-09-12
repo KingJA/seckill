@@ -32,7 +32,18 @@ public class MiaoshaUserService {
     RedisService redisService;
 
     public MiaoshaUser getById(int id) {
-        return miaoshaUserDao.getById(id);
+        //1.有缓存则取缓存
+        //2.没缓存取数据库
+        //3.保存如缓存
+        MiaoshaUser user = redisService.get(MiaoshaUserKey.getById, "" + id, MiaoshaUser.class);
+        if (user != null) {
+            return user;
+        }
+        user = miaoshaUserDao.getById(id);
+        if (user != null) {
+            redisService.set(MiaoshaUserKey.getById, "" + id, user);
+        }
+        return user;
     }
 
     public String login(HttpServletResponse httpServletResponse, LoginVo loginVo) {
@@ -50,7 +61,7 @@ public class MiaoshaUserService {
         }
         //生成cookie
         String token = UUIDUtil.uuid();
-        addCookie(httpServletResponse,token, user);
+        addCookie(httpServletResponse, token, user);
         return token;
     }
 
@@ -60,12 +71,12 @@ public class MiaoshaUserService {
         }
         MiaoshaUser miaoshaUser = redisService.get(MiaoshaUserKey.token, token, MiaoshaUser.class);
         if (miaoshaUser != null) {
-            addCookie(response,token, miaoshaUser);
+            addCookie(response, token, miaoshaUser);
         }
         return miaoshaUser;
     }
 
-    private void addCookie(HttpServletResponse response,String token, MiaoshaUser user) {
+    private void addCookie(HttpServletResponse response, String token, MiaoshaUser user) {
         redisService.set(MiaoshaUserKey.token, token, user);
         Cookie cookie = new Cookie(MiaoshaUserKey.COOKIE_NAME_TOKEN, token);
         cookie.setMaxAge(MiaoshaUserKey.token.expireSeconds());

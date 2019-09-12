@@ -45,7 +45,22 @@ HandlerMethodArgumentResolver
 
 秒杀商品
 snowflake算法
-* 不提倡在service中调用别的dao,可以调用别的service，这样逻辑清晰些
+* 不提倡在service中调用别的dao,可以调用别的service，这样逻辑清晰些，而且别的Service可能对dao进行了包装，比如增加缓存
 
 
 jmeter压测
+
+
+### 页面优化
+* 缓存
+html页面缓存
+@RequestMapping(value = "/to_detail/{goodsId}",produces = "text/html")
+@ResponseBody
+
+操作逻辑
+高性能网站设计之缓存更新的套路：https://blog.csdn.net/tTU1EvLDeLFq5btqiK/article/details/78693323
+有缓存取缓存，没缓存读数据库，渲染成html保存在缓存
+一般分页只缓存前几页，因为大多数用户就点前几页
+如果缓存有更新，要及时更新缓存
+
+前后端分离：减少从服务器下载html的消耗，只在前端请求数据
