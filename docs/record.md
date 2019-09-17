@@ -64,3 +64,5 @@ html页面缓存
 如果缓存有更新，要及时更新缓存
 
 前后端分离：减少从服务器下载html的消耗，只在前端请求数据
+解决超卖问题，sql中加入库存判断
+update miaosha_goods set stock_count=stock_count -1 where goods_id=#{goodsId} and stock_count>0
