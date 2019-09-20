@@ -51,13 +51,13 @@ public class MiaoshaUserService {
         String password = loginVo.getPassword();
         MiaoshaUser user = miaoshaUserDao.getById(Long.valueOf(mobile));
         if (user == null) {
-            throw new ResultException(CodeMsg.ERROR_MOBILE_NOEXIST);
+            throw new ResultException(CodeMsg.MOBILE_ERROR);
         }
         String dbPassword = user.getPassword();
         String dbSalt = user.getSalt();
 
         if (!Md5Util.formPassToDBPass(password, dbSalt).equals(dbPassword)) {
-            throw new ResultException(CodeMsg.ERROR_PASSWORD);
+            throw new ResultException(CodeMsg.PASSWORD_ERROR);
         }
         //生成cookie
         String token = UUIDUtil.uuid();

@@ -30,9 +30,9 @@ public class GlobleExceptionHandler {
             BindException exception= (BindException) e;
             List<ObjectError> allErrors = exception.getAllErrors();
             String defaultMessage = allErrors.get(0).getDefaultMessage();
-            return Result.error(CodeMsg.ERROR_BIND.fillArgs(defaultMessage));
+            return Result.error(CodeMsg.BIND_ERROR.fillArgs(defaultMessage));
         }else{
-          return   Result.error(CodeMsg.ERROR_SERVER);
+          return   Result.error(CodeMsg.BIND_ERROR);
         }
     }
     @ExceptionHandler(value = ResultException.class)

@@ -64,5 +64,27 @@ html页面缓存
 如果缓存有更新，要及时更新缓存
 
 前后端分离：减少从服务器下载html的消耗，只在前端请求数据
-解决超卖问题，sql中加入库存判断
+1.解决超卖问题，sql中加入库存判断
 update miaosha_goods set stock_count=stock_count -1 where goods_id=#{goodsId} and stock_count>0
+2.加入userId,goodId唯一索引，有效避免秒杀多次
+
+静态资源优化：
+JS/CSS 压缩，减少流量 webpack打包
+多个JS/CSS组合，减少请求次数 淘宝tengine软件
+CDN就近访问
+
+分库分表:阿里巴巴mycat
+
+接口优化：
+1.redis预减库存减少数据库访问
+2.内存标记减少redis访问
+3.请求入队列缓冲，异步下单，提升用户体验
+
+
+接口优化思路：
+1.系统初始化，将商品库存加载到redis
+2.收到请求，redis预减库存，如库存不足则直接返回，反正进入队列
+3.请求入队，立即返回队列
+4.请求出对，生成订单，减少库存
+5.客户端轮询，是否秒杀成功
+

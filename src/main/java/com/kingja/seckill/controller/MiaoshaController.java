@@ -3,6 +3,7 @@ package com.kingja.seckill.controller;
 import com.kingja.seckill.domain.MiaoshaOrder;
 import com.kingja.seckill.domain.MiaoshaUser;
 import com.kingja.seckill.domain.OrderInfo;
+import com.kingja.seckill.redis.OrderKey;
 import com.kingja.seckill.redis.RedisService;
 import com.kingja.seckill.result.CodeMsg;
 import com.kingja.seckill.result.Result;
