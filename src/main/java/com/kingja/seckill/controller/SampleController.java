@@ -1,6 +1,7 @@
 package com.kingja.seckill.controller;
 
 import com.kingja.seckill.domain.User;
+import com.kingja.seckill.rabbitmq.MQSender;
 import com.kingja.seckill.redis.RedisService;
 import com.kingja.seckill.redis.UserKey;
 import com.kingja.seckill.result.Result;
@@ -25,10 +26,20 @@ public class SampleController {
     UserService userService;
     @Autowired
     RedisService redisService;
+
+    @Autowired
+    MQSender mqSender;
     @RequestMapping("/thymeleaf")
     public String thymeleaf(Model model) {
         model.addAttribute("name", "kingja");
         return "hello";
+    }
+
+    @RequestMapping("/mq")
+    @ResponseBody
+    public Result<String> mq() {
+        mqSender.send("hello，KingJA");
+        return Result.success("发送队列");
     }
 
     @RequestMapping("/db/get")
