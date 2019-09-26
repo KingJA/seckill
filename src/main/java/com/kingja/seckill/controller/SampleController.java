@@ -29,6 +29,7 @@ public class SampleController {
 
     @Autowired
     MQSender mqSender;
+
     @RequestMapping("/thymeleaf")
     public String thymeleaf(Model model) {
         model.addAttribute("name", "kingja");
@@ -42,16 +43,38 @@ public class SampleController {
         return Result.success("发送队列");
     }
 
+    @RequestMapping("/mq/topic")
+    @ResponseBody
+    public Result<String> topic() {
+        mqSender.sendTopic("hello，KingJA Topic");
+        return Result.success("发送队列");
+    }
+
+    @RequestMapping("/mq/fanout")
+    @ResponseBody
+    public Result<String> fanout() {
+        mqSender.sendFanout("hello，KingJA fanout");
+        return Result.success("发送队列");
+    }
+
+    @RequestMapping("/mq/heads")
+    @ResponseBody
+    public Result<String> heads() {
+        mqSender.sendHeads("hello，KingJA heads");
+        return Result.success("发送队列");
+    }
+
     @RequestMapping("/db/get")
     @ResponseBody
     public Result<User> getUser() {
         User user = userService.getById(1);
         return Result.success(user);
     }
+
     @RequestMapping("/redis/get")
     @ResponseBody
     public Result<User> redisget() {
-        User user = redisService.get(UserKey.getById,"1",User.class);
+        User user = redisService.get(UserKey.getById, "1", User.class);
         return Result.success(user);
     }
 
@@ -61,7 +84,7 @@ public class SampleController {
         User user = new User();
         user.setId(888);
         user.setName("Jordan");
-        Boolean result = redisService.set(UserKey.getById,"1",user);
+        Boolean result = redisService.set(UserKey.getById, "1", user);
         return Result.success(result);
     }
 

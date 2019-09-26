@@ -1,7 +1,7 @@
 package com.kingja.seckill.controller;
 
 import com.kingja.seckill.domain.MiaoshaUser;
-import com.kingja.seckill.redis.GoodsCacheKey;
+import com.kingja.seckill.redis.GoodsKey;
 import com.kingja.seckill.redis.RedisService;
 import com.kingja.seckill.result.Result;
 import com.kingja.seckill.service.GoodsService;
@@ -52,7 +52,7 @@ public class GoodsController {
         logger.info("to_static_list:");
 
         //有缓存则取缓存
-        String html = redisService.get(GoodsCacheKey.goodsList, "", String.class);
+        String html = redisService.get(GoodsKey.goodsList, "", String.class);
         if (!StringUtils.isEmpty(html)) {
             return html;
         }
@@ -63,7 +63,7 @@ public class GoodsController {
                 model.asMap());
         html = thymeleafViewResolver.getTemplateEngine().process("goods_static_list", ctx);
         //存入缓存
-        redisService.set(GoodsCacheKey.goodsList, "", html);
+        redisService.set(GoodsKey.goodsList, "", html);
         return html;
     }
     @RequestMapping(value = "/to_list",produces = "text/html")
@@ -72,7 +72,7 @@ public class GoodsController {
         logger.info("to_list:");
 
         //有缓存则取缓存
-        String html = redisService.get(GoodsCacheKey.goodsList, "", String.class);
+        String html = redisService.get(GoodsKey.goodsList, "", String.class);
         if (!StringUtils.isEmpty(html)) {
             return html;
         }
@@ -83,7 +83,7 @@ public class GoodsController {
                 model.asMap());
         html = thymeleafViewResolver.getTemplateEngine().process("goods_list", ctx);
         //存入缓存
-        redisService.set(GoodsCacheKey.goodsList, "", html);
+        redisService.set(GoodsKey.goodsList, "", html);
         return html;
     }
     @RequestMapping(value = "/to_detail/{goodsId}",produces = "text/html")
@@ -92,7 +92,7 @@ public class GoodsController {
         logger.info("goodsId:" + goodsId);
 
         //有缓存则取缓存
-        String html = redisService.get(GoodsCacheKey.goodsDetail, ""+goodsId, String.class);
+        String html = redisService.get(GoodsKey.goodsDetail, ""+goodsId, String.class);
         if (!StringUtils.isEmpty(html)) {
             return html;
         }
@@ -126,7 +126,7 @@ public class GoodsController {
                 model.asMap());
         html = thymeleafViewResolver.getTemplateEngine().process("goods_detail", ctx);
         //存入缓存
-        redisService.set(GoodsCacheKey.goodsDetail, ""+goodsId, html);
+        redisService.set(GoodsKey.goodsDetail, ""+goodsId, html);
         return html;
     }
 
