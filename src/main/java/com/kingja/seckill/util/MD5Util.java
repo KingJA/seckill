@@ -8,7 +8,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class Md5Util {
+public class MD5Util {
     private static final String salt = "1a2b3c4d";
 
     public static String md5(String string) {

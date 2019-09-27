@@ -8,10 +8,11 @@ package com.kingja.seckill.redis;
  */
 public class MiaoshaKey extends BasePrefix {
 
-    public MiaoshaKey(String prefix) {
-        super( prefix);
+
+    public MiaoshaKey(int expireSeconds, String prefix) {
+        super(expireSeconds, prefix);
     }
-
-
-    public static MiaoshaKey isGoodsOver=new MiaoshaKey("isGoodsOver");
+    public static MiaoshaKey isGoodsOver = new MiaoshaKey(0, "isGoodsOver");
+    public static MiaoshaKey miaoshaPath = new MiaoshaKey(60, "miaoshaPath");
+    public static MiaoshaKey getMiaoshaVerifyCode = new MiaoshaKey(300, "iaoshaVerifyCode");
 }

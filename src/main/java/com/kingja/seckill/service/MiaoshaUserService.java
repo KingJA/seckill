@@ -6,7 +6,7 @@ import com.kingja.seckill.exception.ResultException;
 import com.kingja.seckill.redis.MiaoshaUserKey;
 import com.kingja.seckill.redis.RedisService;
 import com.kingja.seckill.result.CodeMsg;
-import com.kingja.seckill.util.Md5Util;
+import com.kingja.seckill.util.MD5Util;
 import com.kingja.seckill.util.UUIDUtil;
 import com.kingja.seckill.vo.LoginVo;
 
@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Service
 public class MiaoshaUserService {
+    public static final String COOKI_NAME_TOKEN = "token";
     @Autowired
     MiaoshaUserDao miaoshaUserDao;
 
@@ -56,7 +57,7 @@ public class MiaoshaUserService {
         String dbPassword = user.getPassword();
         String dbSalt = user.getSalt();
 
-        if (!Md5Util.formPassToDBPass(password, dbSalt).equals(dbPassword)) {
+        if (!MD5Util.formPassToDBPass(password, dbSalt).equals(dbPassword)) {
             throw new ResultException(CodeMsg.PASSWORD_ERROR);
         }
         //生成cookie

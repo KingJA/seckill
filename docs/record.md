@@ -89,7 +89,26 @@ CDN就近访问
 5.客户端轮询，是否秒杀成功
 
 
+安全优化：
+1.秒杀接口地址隐藏
+2.数学公式验证码
+分散用户请求，延长操作时间，减少并发量
+3.接口限流防刷
+Interceptor拦截器+AccessLimit自定义注解
+
+HandlerInterceptorAdapter先执行
+HandlerMethodArgumentResolver后执行
+ThreadLocal线程安全，全局存储
+利用response改造返回
+
+
+
+
+
+
 20190926
 用guest账号登录管理平台后创建一个admin账号，并给与权限。控制台直接创建的kingja账号不能用，不知道为什么
 SpringBoot+rabbitmq收发教程
+
+
 
